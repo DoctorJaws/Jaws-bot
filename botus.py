@@ -7,13 +7,12 @@ botus = commands.Bot(command_prefix='!',intents=discord.Intents.all())
 async def send(ctx,member: discord.Member, *, text):
     print(member)
     print(text)
-    await member.send(embed=discord.Embed(title=f"the mods have seen your message and say:", description=f"{text}",
+    await member.send(embed=discord.Embed(title=f"the mods have seen your message and say: a scam.", description=f"{text}",
                                 color=0x126180))
 @botus.command()
-async def code(ctx,member: discord.Member, *):
+async def code(ctx,member: discord.Member,message):
     print(member)
-    print(text)
-    await member.send()
+    await message.send("https://github.com/DoctorJaws/Jaws-bot")
 @botus.event
 async def on_ready():
     print(f"Logged in as {botus.user.name}.")
