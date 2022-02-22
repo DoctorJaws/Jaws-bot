@@ -4,7 +4,6 @@ import datetime
 import os
 import warnings
 import aiohttp
-import time
 from discord.ext import commands
 from dotenv import load_dotenv
 
@@ -31,11 +30,10 @@ async def timeout_user(*, user_id: int, guild_id: int, until):
 
 @bot.listen("on_message")
 async def scam(message):
+    if message is None:
+        return None
     distance = {}
     URLs = functions.findURLs(message.content)
-    joinDate = message.author.joined_at
-    currentTime = datetime.datetime.now()
-    timeDifference = currentTime - joinDate
     scam = {"reason": [], "percentage": 0}
 
     for url in URLs:
@@ -62,12 +60,8 @@ async def scam(message):
             if distance != 0:
                 scam['percentage'] += 20
                 scam['reason'].append(f"URL ({url}) is suspicious.")
-    if timeDifference is not None:
-        if int(timeDifference.days) <= 1:
-            # Checks to see if user has been a part of the server for less than a day before sending this message.
-            scam['percentage'] += 30
-            scam['reason'].append(f"Age in server (<t:{int(time.mktime(joinDate.timetuple()))}:R>) is suspicious.")
     channel = await bot.fetch_channel(536719908080189450)
+    discord.guild.roles=message.author.roles
     moderator = discord.utils.get(message.guild.roles, id=461636038406832134)
     x = '\n'.join(scam['reason'])
     if scam['percentage'] >= 50:
@@ -82,8 +76,8 @@ async def scam(message):
 
         handshake = await timeout_user(user_id=message.author.id, guild_id=message.author.guild.id, until=10080)
         if handshake:
-            return await channel.send(f"{moderator.mention} Successfully timed out {message.author} for 1 week")
-        await channel.send(f"{moderator.mention}Something went wrong and {message.author} was not timed out")
+            return await channel.send(f"Successfully timed out {message.author} for 1 week")
+        await channel.send(f"Something went wrong and {message.author} was not timed out")
 
     await bot.process_commands(message)
 
