@@ -61,8 +61,6 @@ async def scam(message):
                 scam['percentage'] += 20
                 scam['reason'].append(f"URL ({url}) is suspicious.")
     channel = await bot.fetch_channel(536719908080189450)
-    discord.guild.roles=message.author.roles
-    moderator = discord.utils.get(message.guild.roles, id=461636038406832134)
     x = '\n'.join(scam['reason'])
     if scam['percentage'] >= 50:
         await message.delete()
@@ -80,7 +78,6 @@ async def scam(message):
         await channel.send(f"Something went wrong and {message.author} was not timed out")
 
     await bot.process_commands(message)
-
 
 @bot.listen("on_message")
 async def messages(message):
