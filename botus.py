@@ -10,9 +10,8 @@ async def send(ctx,member: discord.Member, *, text):
     await member.send(embed=discord.Embed(title=f"the mods have seen your message and say: a scam.", description=f"{text}",
                                 color=0x126180))
 @botus.command()
-async def code(ctx,member: discord.Member,message):
-    print(member)
-    await message.send(f"{member.mention}: https://github.com/DoctorJaws/Jaws-bot")
+async def code(ctx):
+    await ctx.send("https://github.com/DoctorJaws/Jaws-bot")
 @botus.event
 async def on_ready():
     print(f"Logged in as {botus.user.name}.")
