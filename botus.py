@@ -12,7 +12,7 @@ async def send(ctx,member: discord.Member, *, text):
 @botus.command()
 async def code(ctx,member: discord.Member,message):
     print(member)
-    await message.send("https://github.com/DoctorJaws/Jaws-bot")
+    await message.send(f"{member.mention}: https://github.com/DoctorJaws/Jaws-bot")
 @botus.event
 async def on_ready():
     print(f"Logged in as {botus.user.name}.")
